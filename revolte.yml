@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Delight
-  appName: new-app
+  project: Tuesday
+  appName: appcheckagain
   env:
     staging:
       branch: main
@@ -106,6 +106,9 @@ revolte:
               DATABASE_NAME: defaultdb
               THIRD_PARTY_URL: https://testtt.requestcatcher.com/
               BASE_URL: /api/v1
+              CACHE_HOST: '#{cacheService.cacheHost}'
+              CACHE_PORT: '#{cacheService.cachePort}'
+              CACHE_PASSWORD: '#{cacheService.cachePassword}'
           insights:
             cpu:
               - cpu_time_idle
