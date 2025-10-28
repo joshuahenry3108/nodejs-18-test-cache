@@ -1,21 +1,52 @@
 revolte:
-  version: "1.0"
-  project: "instagram"
-  appName: "order"
+  version: '1.0'
+  project: Delight
+  appName: new-app
   env:
-    qa:
-      branch: "test-cache-pams"
+    staging:
+      branch: main
       services:
         rid_1:
-          name: "auth-service"
-          type: "WEB_SERVICE"
-          entryPoint: "app.ts"
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: index.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+              DATABASE_URL: '#{db.dbUrl}'
+              DATABASE_PORT: '#{db.dbPort}'
+              DATABASE_USERNAME: '#{db.dbUsername}'
+              DATABASE_PASSWORD: '#{db.dbPassword}'
+              DATABASE_NAME: '#{db.dbName}'
           specifications:
             cpu: 2
-            memory: 2
+            memory: 1
             storage: 30
+        rid_2:
+          type: DATABASE
+          name: db
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            engine: postgres
+        rid_3:
+          type: CACHE
+          name: cache_service
+          specifications:
+            cpu: 2
+            memory: 0.5
+    qa:
+      branch: main
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: auth-service
+          entryPoint: app.ts
           properties:
-            health: "/health"
+            health: /health
             port: 8080
             variables:
               CACHE_HOST: '#{cacheService.cacheHost}'
@@ -29,40 +60,72 @@ revolte:
               THIRD_PARTY_URL: https://testtt.requestcatcher.com/
               BASE_URL: /api/v1
           insights:
-              cpu:
-                - cpu_time_idle
-                - cpu_time_user
-                - cpu_time_system
-              swap:
-                - swap_used
-              mem:
-                - mem_total
-                - mem_free
-              disk:
-                - disk_free
-                - disk_total
-                - disk_used
-        rid_2:
-          name: "userDatabase"
-          type: "DATABASE"
+            cpu:
+              - cpu_time_idle
+              - cpu_time_user
+              - cpu_time_system
+            swap:
+              - swap_used
+            mem:
+              - mem_total
+              - mem_free
+            disk:
+              - disk_free
+              - disk_total
+              - disk_used
           specifications:
-            engine: "mysql"
+            cpu: 2
+            memory: 2
+            storage: 30
+        rid_2:
+          type: DATABASE
+          name: userDatabase
+          specifications:
             cpu: 2
             memory: 1
             storage: 20
+            engine: mysql
         rid_3:
-          name: "cacheService"
-          type: "CACHE"
+          type: CACHE
+          name: cacheService
           specifications:
             cpu: 2
             memory: 0.5
     production:
-      branch: "test-cache-pams"
+      branch: main
       services:
         rid_1:
-          name: "auth-service"
-          type: "WEB_SERVICE"
-          entryPoint: "app.ts"
+          type: WEB_SERVICE
+          name: auth-service
+          entryPoint: app.ts
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              CACHE_HOST: '#{cacheService.cacheHost}'
+              CACHE_PORT: '#{cacheService.cachePort}'
+              CACHE_PASSWORD: '#{cacheService.cachePassword}'
+              DATABASE_URL: '#{userDatabase.dbUrl}'
+              DATABASE_PORT: '#{userDatabase.dbPort}'
+              DATABASE_USERNAME: '#{userDatabase.dbUsername}'
+              DATABASE_PASSWORD: '#{userDatabase.dbPassword}'
+              DATABASE_NAME: defaultdb
+              THIRD_PARTY_URL: https://testtt.requestcatcher.com/
+              BASE_URL: /api/v1
+          insights:
+            cpu:
+              - cpu_time_idle
+              - cpu_time_user
+              - cpu_time_system
+            swap:
+              - swap_used
+            mem:
+              - mem_total
+              - mem_free
+            disk:
+              - disk_free
+              - disk_total
+              - disk_used
           specifications:
             cpu: 2
             memory: 2
@@ -71,46 +134,52 @@ revolte:
               replica:
                 min: 1
                 max: 3
-          properties:
-            health: "/health"
-            port: 8080
-            variables:
-              CACHE_HOST: '#{cacheService.cacheHost}'
-              CACHE_PORT: '#{cacheService.cachePort}'
-              CACHE_PASSWORD: '#{cacheService.cachePassword}'
-              DATABASE_URL: '#{userDatabase.dbUrl}'
-              DATABASE_PORT: '#{userDatabase.dbPort}'
-              DATABASE_USERNAME: '#{userDatabase.dbUsername}'
-              DATABASE_PASSWORD: '#{userDatabase.dbPassword}'
-              DATABASE_NAME: defaultdb
-              THIRD_PARTY_URL: https://testtt.requestcatcher.com/
-              BASE_URL: /api/v1
-          insights:
-              cpu:
-                - cpu_time_idle
-                - cpu_time_user
-                - cpu_time_system
-              swap:
-                - swap_used
-              mem:
-                - mem_total
-                - mem_free
-              disk:
-                - disk_free
-                - disk_total
-                - disk_used
         rid_2:
-          name: "userDatabase"
-          type: "DATABASE"
+          type: DATABASE
+          name: userDatabase
           specifications:
-            engine: "mysql"
             cpu: 2
             memory: 1
-            storage: 20
+            storage: 30
+            engine: mysql
         rid_3:
-          name: "cacheService"
-          type: "CACHE"
+          type: CACHE
+          name: cacheService
           specifications:
             cpu: 2
             memory: 0.5
             replica: 3
+    preview:
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: index.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+              DATABASE_URL: '#{db.dbUrl}'
+              DATABASE_PORT: '#{db.dbPort}'
+              DATABASE_USERNAME: '#{db.dbUsername}'
+              DATABASE_PASSWORD: '#{db.dbPassword}'
+              DATABASE_NAME: '#{db.dbName}'
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+        rid_2:
+          type: DATABASE
+          name: db
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            engine: postgres
+        rid_3:
+          type: CACHE
+          name: cache_service
+          specifications:
+            cpu: 2
+            memory: 0.5
