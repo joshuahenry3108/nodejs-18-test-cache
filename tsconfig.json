@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+      "lib": ["ES2021"],
+      "target": "ES6",
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "paths": {
+      },
+      "resolveJsonModule": true,
+      "sourceMap": false,
+      "inlineSourceMap": false,
+      "outDir": "./build",
+      "removeComments": true,
+      "noEmitOnError": true,
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictPropertyInitialization": true,
+      "noImplicitThis": true,
+      "useUnknownInCatchVariables": true,
+      "alwaysStrict": true,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
+      "noFallthroughCasesInSwitch": true,
+      "noUncheckedIndexedAccess": true
+    },
+    "include": ["*.ts"],
+    "exclude": ["build/"]
+  }
+  
