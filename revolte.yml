@@ -49,9 +49,6 @@ revolte:
             health: /health
             port: 8080
             variables:
-              CACHE_HOST: '#{cacheService.cacheHost}'
-              CACHE_PORT: '#{cacheService.cachePort}'
-              CACHE_PASSWORD: '#{cacheService.cachePassword}'
               DATABASE_URL: '#{userDatabase.dbUrl}'
               DATABASE_PORT: '#{userDatabase.dbPort}'
               DATABASE_USERNAME: '#{userDatabase.dbUsername}'
@@ -102,9 +99,6 @@ revolte:
             health: /health
             port: 8080
             variables:
-              CACHE_HOST: '#{cacheService.cacheHost}'
-              CACHE_PORT: '#{cacheService.cachePort}'
-              CACHE_PASSWORD: '#{cacheService.cachePassword}'
               DATABASE_URL: '#{userDatabase.dbUrl}'
               DATABASE_PORT: '#{userDatabase.dbPort}'
               DATABASE_USERNAME: '#{userDatabase.dbUsername}'
