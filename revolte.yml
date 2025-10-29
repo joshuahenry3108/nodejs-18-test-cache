@@ -136,7 +136,7 @@ revolte:
           specifications:
             cpu: 2
             memory: 0.5
-            replica: 1
+            replica: 2
     preview:
       services:
         rid_1:
