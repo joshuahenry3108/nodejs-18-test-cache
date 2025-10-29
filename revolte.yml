@@ -9,7 +9,7 @@ revolte:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: index.js
+          entryPoint: app.ts
           properties:
             health: /health
             port: 8080
@@ -23,6 +23,21 @@ revolte:
               CACHE_HOST: '#{cache.cacheHost}'
               CACHE_PORT: '#{cache.cachePort}'
               CACHE_PASSWORD: '#{cache.cachePassword}'
+              THIRD_PARTY_URL: https://testtt.requestcatcher.com/
+          insights:
+            cpu:
+              - cpu_time_idle
+              - cpu_time_system
+              - cpu_time_user
+            swap:
+              - swap_used
+            mem:
+              - mem_total
+              - mem_free
+            disk:
+              - disk_used
+              - disk_total
+              - disk_free
           specifications:
             cpu: 2
             memory: 1
