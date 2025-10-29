@@ -5,9 +5,9 @@ import db from './database/models';
 
 // --- Redis Setup ---
 const createRedisClient = () => {
-  const redisHost = process.env.CACHE_HOST;
+  const redisHost = process.env.CACHE_HOST || "127.0.0.1";
   const redisPort = Number(process.env.CACHE_PORT) || 6379;
-  const redisPassword = process.env.CACHE_PASSWORD;
+  const redisPassword = process.env.CACHE_PASSWORD || undefined;
   const redisMaxRetry = Number(process.env.REDIS_MAX_RETRY) || 5;
 
   if (!redisHost) {
