@@ -106,8 +106,8 @@ revolte:
           type: CACHE
           name: cache
           specifications:
-            cpu: 2
-            memory: 0.5
+            cpu: 4
+            memory: 12.93
     production:
       branch: main
       services:
