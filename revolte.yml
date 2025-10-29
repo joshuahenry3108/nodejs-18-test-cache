@@ -1,0 +1,72 @@
+revolte:
+  version: '1.0'
+  project: dark knight
+  appName: node webservice
+  env:
+    staging:
+      branch: main
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+    qa:
+      branch: webservice
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+          specifications:
+            cpu: 2
+            memory: 2
+            storage: 30
+    production:
+      branch: main
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            autoScaling:
+              replica:
+                min: 1
+                max: 1
+    preview:
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
