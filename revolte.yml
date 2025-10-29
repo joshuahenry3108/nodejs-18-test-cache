@@ -2,6 +2,13 @@ revolte:
   version: '1.0'
   project: Techno-vault
   appName: cache-test
+  config:
+    codeQuality:
+      codeStyle:
+        rules:
+          javascript/arrayCallbackReturn: warn
+    testSuite:
+      command: npm run test
   env:
     staging:
       branch: main
@@ -58,6 +65,9 @@ revolte:
             memory: 0.5
     qa:
       branch: main
+      codeReview: false
+      codeQuality: true
+      testSuite: true
       services:
         rid_1:
           type: WEB_SERVICE
