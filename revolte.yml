@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Tuesday
-  appName: appcheckagain
+  project: Techno-vault
+  appName: cache-test
   env:
     staging:
       branch: main
@@ -20,6 +20,9 @@ revolte:
               DATABASE_USERNAME: '#{db.dbUsername}'
               DATABASE_PASSWORD: '#{db.dbPassword}'
               DATABASE_NAME: '#{db.dbName}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
@@ -31,7 +34,7 @@ revolte:
             cpu: 2
             memory: 1
             storage: 30
-            engine: postgres
+            engine: mysql
         rid_3:
           type: CACHE
           name: cache_service
@@ -43,48 +46,36 @@ revolte:
       services:
         rid_1:
           type: WEB_SERVICE
-          name: auth-service
-          entryPoint: app.ts
+          name: web_service
+          entryPoint: index.js
           properties:
             health: /health
             port: 8080
             variables:
-              DATABASE_URL: '#{userDatabase.dbUrl}'
-              DATABASE_PORT: '#{userDatabase.dbPort}'
-              DATABASE_USERNAME: '#{userDatabase.dbUsername}'
-              DATABASE_PASSWORD: '#{userDatabase.dbPassword}'
-              DATABASE_NAME: defaultdb
-              THIRD_PARTY_URL: https://testtt.requestcatcher.com/
               BASE_URL: /api/v1
-          insights:
-            cpu:
-              - cpu_time_idle
-              - cpu_time_user
-              - cpu_time_system
-            swap:
-              - swap_used
-            mem:
-              - mem_total
-              - mem_free
-            disk:
-              - disk_free
-              - disk_total
-              - disk_used
-          specifications:
-            cpu: 2
-            memory: 2
-            storage: 30
-        rid_2:
-          type: DATABASE
-          name: userDatabase
+              DATABASE_URL: '#{db.dbUrl}'
+              DATABASE_PORT: '#{db.dbPort}'
+              DATABASE_USERNAME: '#{db.dbUsername}'
+              DATABASE_PASSWORD: '#{db.dbPassword}'
+              DATABASE_NAME: '#{db.dbName}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
-            storage: 20
+            storage: 30
+        rid_2:
+          type: DATABASE
+          name: db
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
             engine: mysql
         rid_3:
           type: CACHE
-          name: cacheService
+          name: cache_service
           specifications:
             cpu: 2
             memory: 0.5
@@ -93,22 +84,22 @@ revolte:
       services:
         rid_1:
           type: WEB_SERVICE
-          name: auth-service
+          name: web_service
           entryPoint: app.ts
           properties:
             health: /health
             port: 8080
             variables:
-              DATABASE_URL: '#{userDatabase.dbUrl}'
-              DATABASE_PORT: '#{userDatabase.dbPort}'
-              DATABASE_USERNAME: '#{userDatabase.dbUsername}'
-              DATABASE_PASSWORD: '#{userDatabase.dbPassword}'
-              DATABASE_NAME: defaultdb
-              THIRD_PARTY_URL: https://testtt.requestcatcher.com/
               BASE_URL: /api/v1
-              CACHE_HOST: '#{cacheService.cacheHost}'
-              CACHE_PORT: '#{cacheService.cachePort}'
-              CACHE_PASSWORD: '#{cacheService.cachePassword}'
+              DATABASE_URL: '#{db.dbUrl}'
+              DATABASE_PORT: '#{db.dbPort}'
+              DATABASE_USERNAME: '#{db.dbUsername}'
+              DATABASE_PASSWORD: '#{db.dbPassword}'
+              DATABASE_NAME: '#{db.dbName}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
+              THIRD_PARTY_URL: https://testtt.requestcatcher.com/
           insights:
             cpu:
               - cpu_time_idle
@@ -130,10 +121,10 @@ revolte:
             autoScaling:
               replica:
                 min: 1
-                max: 3
+                max: 1
         rid_2:
           type: DATABASE
-          name: userDatabase
+          name: db
           specifications:
             cpu: 2
             memory: 1
@@ -141,11 +132,11 @@ revolte:
             engine: mysql
         rid_3:
           type: CACHE
-          name: cacheService
+          name: cache_service
           specifications:
             cpu: 2
             memory: 0.5
-            replica: 3
+            replica: 1
     preview:
       services:
         rid_1:
@@ -162,6 +153,9 @@ revolte:
               DATABASE_USERNAME: '#{db.dbUsername}'
               DATABASE_PASSWORD: '#{db.dbPassword}'
               DATABASE_NAME: '#{db.dbName}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
@@ -173,7 +167,7 @@ revolte:
             cpu: 2
             memory: 1
             storage: 30
-            engine: postgres
+            engine: mysql
         rid_3:
           type: CACHE
           name: cache_service
