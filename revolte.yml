@@ -25,7 +25,7 @@ revolte:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: app.js
+          entryPoint: app.ts
           properties:
             health: /health
             port: 8080
