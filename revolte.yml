@@ -1,18 +1,7 @@
 revolte:
   version: '1.0'
-  project: Sky High
-  appName: sanity-db-cache
-  config:
-    codeReview:
-      summarize: false
-      suggestFixes: false
-      commentStyle: Balanced
-    codeQuality:
-      codeStyle:
-        rules:
-          javascript/noUndef: warn
-    testSuite:
-      command: npm run test
+  project: twisted
+  appName: redis
   env:
     staging:
       branch: main
@@ -80,7 +69,7 @@ revolte:
               CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
-            memory: 1
+            memory: 2
             storage: 30
         rid_2:
           type: DATABASE
